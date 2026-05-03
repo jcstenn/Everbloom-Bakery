@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Final PT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #bbee91; /* Soft green background */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 10px 80px 10px; /* Added bottom padding for footer */
+            gap: 40px;
+        }
+
+        .header, .about-box, .fan-favorites-box, .footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 60px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.4);
+            max-width: 1000px;
+            width: 95%;
+        }
+
+        /* RECIPES SECTION - FIXED PINK BACKGROUND */
+        .recipes-section {
+            background: rgba(254, 156, 181, 0.25);
+            padding: 50px 60px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(254, 156, 181, 0.3);
+            backdrop-filter: blur(15px);
+            max-width: 1000px;
+            width: 95%;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #fe9cb5;
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            background: rgba(254, 156, 181, 0.9);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(254, 156, 181, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .nav-menu span {
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-menu span:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: #fe9cb5;
+        }
+
+        .hero-section {
+            position: relative;
+            max-width: 1000px;
+            width: 95%;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        /* Overlay text */
+        .hero-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 50px;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            max-width: 400px;
+            font-size: 1.3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.6;
+            font-style: italic;
+            text-align: right;
+        }
+
+        /* About & Group Members Row */
+        .about-row {
+            display: flex;
+            gap: 40px;
+            width: 95%;
+            max-width: 1000px;
+            align-items: flex-start;
+        }
+
+        .about-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .group-members-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            padding: 40px;
+        }
+
+        .about-text {
+            background: rgba(254, 156, 181, 0.95);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            box-shadow: 0 15px 35px rgba(254, 156, 181, 0.4);
+            border: 1px solid rgba(255,255,255,0.3);
+            width: 100%;
+        }
+
+        .about-title, .group-title, .fan-title {
+            font-size: 2.5rem;
+            color: #fe9cb5;
+            margin: 0 0 20px 0;
+        }
+
+        /* Fan Favorites Header - FIXED "best selling" COLOR */
+        .fan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .fan-left {
+            font-size: 1rem;
+            color: #fe9cb5;
+            font-weight: 600;
+        }
+
+        .fan-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            color: #fe9cb5;
+            font-weight: 600;
+        }
+
+        /* RECIPES GRID */
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .recipe-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            border-color: #fe9cb5;
+            box-shadow: 0 20px 40px rgba(254, 156, 181, 0.3);
+        }
+
+        .recipe-photo {
+            width: 100%;
+            height: 180px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .recipe-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* GROUP MEMBERS GRID */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            width: 100%;
+            justify-items: center;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(254, 156, 181, 0.3);
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .member-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #fe9cb5;
+        }
+
+        .member-name {
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            color: #fe9cb5;
+            font-size: 0.85rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* Pushes footer to bottom */
+        }
+
+        .footer-title {
+            font-size: 2.2rem;
+            color: #fe9cb5;
+            font-weight: bold;
+        }
+
+        .footer-contact {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .footer-contact span {
+            font-size: 1.1rem;
+            color: #2d3436;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 5px 60px 5px;
+                gap: 30px;
+            }
+            
+            .header, .about-box, .fan-favorites-box, .group-members-box, .recipes-section, .footer {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+            
+            .nav-menu span {
+                padding: 10px 18px;
+                font-size: 1rem;
+            }
+            
+            .hero-section {
+                width: 98%;
+            }
+            
+            .hero-image {
+                height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                top: 30px;
+                left: 30px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                bottom: 30px;
+                right: 30px;
+                max-width: 280px;
+            }
+
+            .about-row {
+                flex-direction: column;
+                gap: 30px;
+                width: 98%;
+            }
+
+            .fan-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .about-title, .group-title, .fan-title {
+                font-size: 2rem;
+            }
+            
+            .about-text {
+                font-size: 0.95rem;
+                padding: 25px;
+            }
+
+            .members-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 15px;
+            }
+            
+            .member-photo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .recipe-photo {
+                height: 150px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-contact {
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .recipes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Everbloom Bakery</h1>
+        <div class="nav-menu">
+            <span>🍰 Menu</span>
+            <span>📖 All Recipes</span>
+            <span>⭐ Fan Favorites</span>
+            <span>🌾 Gluten-Free</span>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <img src="./hero-image.jpg" 
+             alt="Everbloom Bakery" 
+             class="hero-image">
+        <div class="hero-text">
+            <div class="hero-title">
+                Rooted in flavor,<br>
+                blooming with love
+            </div>
+            <div class="hero-subtitle">
+                Where every flavor blossoms into moments you'll cherish forever. 
+                Every bite tells a story of warmth, crafted with care and shared from the heart
+            </div>
+        </div>
+    </div>
+
+    <div class="about-row">
+        <div class="about-box">
+            <h2 class="about-title">About us!</h2>
+            <div class="about-text">
+                Welcome to Everbloom Bakery, where we believe that the best flavors are the ones that never go out of style. Founded on a passion for traditional techniques and a love for the local community, our bakery is a place where every whisk, fold, and bake is done with a commitment to quality and a touch of magic.
+
+                At Everbloom, we specialize in "timeless" baked goods—from the perfect golden crust of our bread to the delicate, buttery layers of our pastries. We aren't just baking for today, we are crafting treats that turn simple moments into lasting memories. Whether it's a morning muffin to start your day or a custom cake for a major milestone, we pour our heart into every recipe to ensure it's as fresh as a flower in bloom.
+            </div>
+        </div>
+
+       
+        <div class="group-members-box">
+            <h2 class="group-title">Group Members</h2>
+            
+            <div class="members-grid">
+                <div class="member-card">
+                    <img src="./member1.jpg" alt="Member 1" class="member-photo">
+                    <div class="member-name">Jada Largado</div>
+                    <div class="member-role">Leader/Programmer</div>
+                </div>
+                <div class="member-card">
+                    <img src="./member2.jpg" alt="Member 2" class="member-photo">
+                    <div class="member-name">Ayesha Reyes</div>
+                </div>
+                <div class="member-card">
+                    <img src="./member3.jpg" alt="Member 3" class="member-photo">
+                    <div class="member-name">Chloe Tamban</div>
+                </div>
+                <div class="member-card">
+                    <img src="./member4.jpg" alt="Member 4" class="member-photo">
+                    <div class="member-name">Basie Escobin</div>
+                </div>
+                 <div class="member-card">
+                    <img src="./member5.jpg" alt="Member 5" class="member-photo">
+                    <div class="member-name">Kael Onate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fan-favorites-box">
+        <div class="fan-header">
+            <div class="fan-left">best selling</div>
+            <h2 class="fan-title">Fan favorites!</h2>
+            <div class="fan-right">
+                <span>view all</span>
+                <span>→</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="recipes-section">
+        <div class="recipes-grid">
+        
+            <div class="recipe-card">
+                <img src="./recipe1.jpg" alt="Recipe 1" class="recipe-photo">
+                <h3 class="recipe-name">Vanilla cake roll</h3>
+            </div>
+            <div class="recipe-card">
+                <img src="./recipe2.jpg" alt="Recipe 2" class="recipe-photo">
+                <h3 class="recipe-name">Dubai Chewy cake</h3>
+            </div>
+            <div class="recipe-card">
+                <img src="./recipe3.jpg" alt="Recipe 3" class="recipe-photo">
+                <h3 class="recipe-name">Strawberry Rose gelatin cake</h3>
+            </div>
+            <div class="recipe-card">
+                <img src="./recipe4.jpg" alt="Recipe 4" class="recipe-photo">
+                <h3 class="recipe-name">Blueberry Cupcakes</h3>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-title">Everbloom cakes</div>
+        <div class="footer-contact">
+            <span>Contact us: 0967676767</span>
+            <span>IG: Everbloom_67</span>
+        </div>
+    </footer>
+</body>
+</html>
